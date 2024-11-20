@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Mês', 'Entradas', 'Saídas'],
+          ['Janeiro', 1000, 400],
+          ['fevereiro', 1170, 460],
+          ['março', 660, 1120],
+          ['Abril', 1030, 540]
+        ]);
+
+        var options = {
+  width: 800,
+  height: 500,
+  colors: ['#319B4D','#D05242']
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: center;">
+        <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    </div>
+    
+  </body>
+</html>

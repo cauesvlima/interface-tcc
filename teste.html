@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Color Picker</title>
+    <style>
+        .color-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ff0000;
+            color: #fff;
+            width: 100%;
+            height: 50px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #colorPicker {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="color-display" id="colorDisplay">
+        <span id="hexValue">#ff0000</span>
+        <input type="color" id="colorPicker">
+    </div>
+
+    <script>
+        const colorPicker = document.getElementById('colorPicker');
+        const colorDisplay = document.getElementById('colorDisplay');
+        const hexValue = document.getElementById('hexValue');
+
+        // Função para verificar se a cor é escura ou clara
+        function isDarkColor(hex) {
+            // Remover o "#" do início se existir
+            hex = hex.replace('#', '');
+
+            // Converter a cor hex em valores RGB
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+
+            // Calcular o brilho da cor (perceptual luminance formula)
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+            // Retorna true se o brilho for menor que 128 (cor escura)
+            return brightness < 128;
+        }
+
+        // Evento para quando o usuário escolhe uma cor
+        colorPicker.addEventListener('input', function() {
+            const color = this.value;
+            colorDisplay.style.backgroundColor = color;
+            hexValue.textContent = color;
+
+            // Verificar se a cor é escura ou clara
+            if (isDarkColor(color)) {
+                hexValue.style.color = '#fff';  // Texto branco para cores escuras
+            } else {
+                hexValue.style.color = '#000';  // Texto preto para cores claras
+            }
+        });
+    </script>
+
+</body>
+</html>
